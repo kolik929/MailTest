@@ -13,6 +13,10 @@ public class StartMailTest extends BaseTest {
 	private String password = "Qwerty123";
 	private String domain = "@mail.ru";
 	
+	private String sendName = login+domain;
+	private String theme = "Как дела?";
+	private String text = "Скоро буду в городе, встречайте!";
+
 
 	@Test(priority = 0)
 	public void loginTest() {
@@ -21,6 +25,10 @@ public class StartMailTest extends BaseTest {
 		loginPage.setPassword(password);
 	
 		MainPage mainPage = loginPage.clickSubmitBtn();
+		mainPage.inputSendName(sendName);
+		mainPage.inputTheme(theme);
+		mainPage.inputText(text);
+		
 		
 	
 	
