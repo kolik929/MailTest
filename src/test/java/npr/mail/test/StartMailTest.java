@@ -25,9 +25,16 @@ public class StartMailTest extends BaseTest {
 		loginPage.setPassword(password);
 	
 		MainPage mainPage = loginPage.clickSubmitBtn();
+		mainPage.writeNewMail();
 		mainPage.inputSendName(sendName);
 		mainPage.inputTheme(theme);
 		mainPage.inputText(text);
+		mainPage.sendMail();
+		mainPage.clicInBox();
+		mainPage.isMailSendet(theme);
+		mainPage.checkBoxAll();
+		mainPage.dellAll();
+		
 		
 		
 	
