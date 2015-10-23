@@ -31,7 +31,7 @@ public class StartMailTest extends BaseTest {
 		mainPage.inputText(text);
 		mainPage.sendMail();
 		mainPage.clicInBox();
-		mainPage.isMailSendet(theme);
+		mainPage.isMailSendet(text);
 		mainPage.checkBoxAll();
 		mainPage.dellAll();
 		

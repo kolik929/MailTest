@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
 
@@ -39,8 +40,11 @@ public class MainPage {
 	@FindBy(how = How.XPATH, using=".//*[@id='b-letters']/div[1]/div[1]/div/div[2]/div[1]/div/a/div[4]/div[3]/div[1]/span")
 	private WebElement inBoxTheme;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[3]/div/div[2]/div[1]/div/div[1]/div[1]/div")
+	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[2]/div/div[2]/div[1]/div/div[1]/div[2]")
 	private WebElement checkBoxAllMail;
+	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[2]/div/div[2]/div[1]/div/div[2]/a[1]/span")
+	private WebElement checkBoxAllMail2;
+	
 	
 	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[3]/div/div[2]/div[2]/div/div[1]/span")
 	private WebElement dellAll;
@@ -99,7 +103,7 @@ public class MainPage {
 	
 	public MainPage clicInBox(){
 		logger.info("Переходим во вкладку входящие ");
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 5);
 		wait.until(ExpectedConditions.elementToBeClickable(btnInBox));
 		btnInBox.click();
 		return this;
@@ -108,9 +112,9 @@ public class MainPage {
 	
 	
 	
-	public MainPage isMailSendet(String theme){
+	public MainPage isMailSendet(String text){
 		logger.info("Проверяем наличие писма ");
-		if (inBoxTheme.equals(theme)){
+		if (inBoxTheme.equals(text)){
 		System.out.println("Письмо пришло");	
 		}else{
 			System.out.println("Письмо не пришло!");
@@ -122,14 +126,22 @@ public class MainPage {
 	
 	public MainPage checkBoxAll(){
 		logger.info("Отмечаем чек боксами все письма ");
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.elementToBeClickable(checkBoxAllMail));
+//		WebDriverWait wait = 
+				new WebDriverWait(driver, 10);
+//		wait.until(ExpectedConditions.elementToBeClickable(checkBoxAllMail));
+//		new Select(checkBoxAllMail).selectByVisibleText("Выделить все письма");
+		logger.info("Пытаемся раскрыть выпадающий список ");		
 		checkBoxAllMail.click();
-		if (checkBoxAllMail.isSelected()){
-			System.out.println("все отмечено");;
-		}else {
-			checkBoxAll();
-		}
+		logger.info("Пытаемся выбрать элемент выпадающего списка");	
+		new WebDriverWait(driver, 10);
+//				wait.until(ExpectedConditions.elementToBeClickable(checkBoxAllMail2));
+				checkBoxAllMail2.click();
+				
+//		if (checkBoxAllMail.isSelected()){
+//			System.out.println("все отмечено");;
+//		}else {
+//			checkBoxAll();
+//		}
 		
 		
 		return this;
