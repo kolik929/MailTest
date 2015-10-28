@@ -34,19 +34,19 @@ public class MainPage {
 	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div/div/div[2]/div[1]/div/span")
 	private WebElement btnSendMail;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-nav_folders']/div/div[1]/a/span[2]")
+	@FindBy(how = How.XPATH, using=".//*[@id='b-nav_folders']//span[contains(.,'Входящие')]")
 	private WebElement btnInBox;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-letters']/div[1]/div[1]/div/div[2]/div[1]/div/a/div[4]/div[3]/div[1]/span")
+	@FindBy(how = How.CSS, using=".b-datalist__item__addr:contains('Test Test')")
 	private WebElement inBoxTheme;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[2]/div/div[2]/div[1]/div/div[1]/div[2]")
+	@FindBy(how = How.CSS, using="div.b-dropdown.b-dropdown_selectAll > div.b-dropdown__ctrl")
 	private WebElement checkBoxAllMail;
-	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[2]/div/div[2]/div[1]/div/div[2]/a[1]/span")
+	@FindBy(how = How.XPATH, using="//div[@id='b-toolbar__right']//a/span[contains(.,'Выделить')]")
 	private WebElement checkBoxAllMail2;
 	
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div[3]/div/div[2]/div[2]/div/div[1]/span")
+	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']//span[contains(.,'Удалить')][1]")
 	private WebElement dellAll;
 	
 	public MainPage(WebDriver driver) {
@@ -103,7 +103,7 @@ public class MainPage {
 	
 	public MainPage clicInBox(){
 		logger.info("Переходим во вкладку входящие ");
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.elementToBeClickable(btnInBox));
 		btnInBox.click();
 		return this;
@@ -113,8 +113,11 @@ public class MainPage {
 	
 	
 	public MainPage isMailSendet(String text){
+		
 		logger.info("Проверяем наличие писма ");
-		if (inBoxTheme.equals(text)){
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(inBoxTheme));
+		if (inBoxTheme.getText().contains(text)){
 		System.out.println("Письмо пришло");	
 		}else{
 			System.out.println("Письмо не пришло!");
@@ -134,8 +137,13 @@ public class MainPage {
 		checkBoxAllMail.click();
 		logger.info("Пытаемся выбрать элемент выпадающего списка");	
 		new WebDriverWait(driver, 10);
-//				wait.until(ExpectedConditions.elementToBeClickable(checkBoxAllMail2));
-				checkBoxAllMail2.click();
+//		wait.until(ExpectedConditions.elementToBeClickable(checkBoxAllMail2));
+		try {
+		checkBoxAllMail2.click();
+			}catch(org.openqa.selenium.StaleElementReferenceException e){
+		
+			}
+		
 				
 //		if (checkBoxAllMail.isSelected()){
 //			System.out.println("все отмечено");;
