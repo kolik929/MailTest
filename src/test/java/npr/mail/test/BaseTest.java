@@ -34,4 +34,22 @@ public class BaseTest {
 		driver.get(url);
 		return new LoginPage(driver);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
