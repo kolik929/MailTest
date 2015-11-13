@@ -5,33 +5,34 @@ import org.testng.annotations.Test;
 import pageObject.LoginPage;
 //import pageObject.MainPage;
 import pageObject.MainPage;
+import parser.PropertiesLoader;
 
 public class StartMailTest extends BaseTest {
 	
-	private String mainUrl = "http://mail.ru";
-	private String login = "MailTest1997";
-	private String password = "Qwerty123";
-	private String domain = "@mail.ru";
+
 	
-	private String sendName = login+domain;
-	private String theme = "Как дела?";
-	private String text = "Скоро буду в городе, встречайте!";
 
 
 	@Test(priority = 0)
 	public void loginTest() {
-		LoginPage loginPage = navigate(mainUrl);
-		loginPage.setLogin(login);
-		loginPage.setPassword(password);
+		PropertiesLoader p = new PropertiesLoader();
+		
+		LoginPage loginPage = navigate(p.getProperty("mainUrl"));
+		loginPage.setLogin(p.getProperty("login"));
+		loginPage.setPassword(p.getProperty("password"));
 	
 		MainPage mainPage = loginPage.clickSubmitBtn();
 		mainPage.writeNewMail();
-		mainPage.inputSendName(sendName);
-		mainPage.inputTheme(theme);
-		mainPage.inputText(text);
+		mainPage.inputSendName(p.getProperty("sendName"));
+		mainPage.inputTheme(p.getProperty("theme"));
+		mainPage.inputText(p.getProperty("text"));
 		mainPage.sendMail();
 		mainPage.clicInBox();
-		mainPage.isMailSendet(text);
+		mainPage.openNewLetter();
+		mainPage.checkText(p.getProperty("text"));
+		mainPage.clicInBox();
+		
+	
 		mainPage.checkBoxAll();
 		mainPage.dellAll();
 		

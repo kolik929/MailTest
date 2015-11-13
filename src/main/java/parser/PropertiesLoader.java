@@ -3,15 +3,21 @@ package parser;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class PropertiesLoader {
+//	   public static void main(String[] args){
+//		  System.out.println(getProperti("mainUrl")); 
+//		   
+//	   }
+//	
 	
-	 public static void main(String[] args) {
+	 public   String getProperty(String value) {
 
 			Properties prop = new Properties();
 			InputStream input = null;
-
+			String out = "";
 			try {
 
 				input = new FileInputStream("C:\\Users\\user\\Desktop\\Java\\project\\mail.test\\lib\\date.txt");
@@ -20,11 +26,11 @@ public class PropertiesLoader {
 				prop.load(input);
 
 				// get the property value and print it out
-				System.out.println(prop.getProperty("browser"));
-				System.out.println(prop.getProperty("standurl"));
-				System.out.println(prop.getProperty("userlogin"));
-				System.out.println(prop.getProperty("userlogindomain"));
-
+//				System.out.println(prop.getProperty("mainUrl"));
+//				System.out.println(prop.getProperty("login"));
+//				System.out.println(prop.getProperty("password"));
+//				System.out.println(prop.getProperty("domain"));
+				out = new String((prop.getProperty(value)).getBytes("ISO-8859-1"), "UTF-8");
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} finally {
@@ -35,8 +41,8 @@ public class PropertiesLoader {
 						e.printStackTrace();
 					}
 				}
-			}
-
-		  }
+		}
+			return out;
+	  }
 
 }

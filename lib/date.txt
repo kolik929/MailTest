@@ -1,7 +1,7 @@
-browser=firefox  
-standurl=https://mail.ru 
-userlogin=testmailru111
-userlogindomain:@inbox.ru  
-userpassword:Konstantin90 
-mailtext:почта 
-maildate:28.09.2015 
+mainUrl = http://mail.ru
+login = MailTest1997
+password = Qwerty123
+domain = @mail.ru
+sendName = MailTest1997@mail.ru
+theme = Как дела
+text = Скоро буду в городе, встречайте! 

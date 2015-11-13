@@ -20,7 +20,7 @@ public class MainPage {
 	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__left']//span")
 	private WebElement writeNewMail;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='compose__header__content']//textarea[2]")
+	@FindBy(how = How.XPATH, using=".//*[@id='compose__header__content']/div[2]/div[2]/div[1]/textarea[2]")
 	private WebElement inputSendName;
 	
 	
@@ -31,18 +31,27 @@ public class MainPage {
 	@FindBy(how = How.XPATH, using=".//body")
 	private WebElement inputText;
 	
-	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']/div/div/div[2]/div[1]/div/span")
+	
+	@FindBy(how = How.XPATH, using=".//*[@id='b-toolbar__right']//span[contains(.,'Отправить')]")
 	private WebElement btnSendMail;
 	
 	@FindBy(how = How.XPATH, using=".//*[@id='b-nav_folders']//span[contains(.,'Входящие')]")
 	private WebElement btnInBox;
+	
+	@FindBy(how = How.XPATH, using=".//*[@class='b-datalist__item js-datalist-item'][1]//a")
+	private WebElement openNewLetter;
+	
+	@FindBy(how = How.XPATH, using=".//*[contains(@id,'style')][contains(@id,'BODY')]")
+	private WebElement checkText;
+	
 	
 	@FindBy(how = How.CSS, using=".b-datalist__item__addr:contains('Test Test')")
 	private WebElement inBoxTheme;
 	
 	@FindBy(how = How.CSS, using="div.b-dropdown.b-dropdown_selectAll > div.b-dropdown__ctrl")
 	private WebElement checkBoxAllMail;
-	@FindBy(how = How.XPATH, using="//div[@id='b-toolbar__right']//a/span[contains(.,'Выделить')]")
+	
+	@FindBy(how = How.XPATH, using="//*[@id='b-toolbar__right']//a/span[contains(.,'Выделить')]")
 	private WebElement checkBoxAllMail2;
 	
 	
@@ -66,7 +75,7 @@ public class MainPage {
 	public MainPage inputSendName(String sendName){
 		logger.info("Вводим получателя ");
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.elementToBeClickable(writeNewMail));
+		wait.until(ExpectedConditions.elementToBeClickable(inputSendName));
 		inputSendName.clear();
 		inputSendName.sendKeys(sendName);
 		return this;
@@ -108,6 +117,31 @@ public class MainPage {
 		btnInBox.click();
 		return this;
 	}
+	
+	public MainPage openNewLetter(){
+		logger.info("Открываем последнее входящее письмо ");
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(openNewLetter));
+		openNewLetter.click();
+		return this;
+	}
+	
+	
+	
+	public MainPage checkText(String text){
+		
+		logger.info("Проверяем текст только что присланного письма ");
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(checkText));
+		if (checkText.getText().contains(text)){
+		System.out.println("Письмо пришло");	
+		}else{
+			System.out.println("Письмо не пришло!");
+		}
+		
+		return this;
+	}
+	
 	
 	
 	
